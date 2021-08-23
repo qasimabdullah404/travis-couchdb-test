@@ -10,9 +10,7 @@ before_install:
   - sudo apt-key add bintray-pubkey.asc
   - echo "deb https://apache.bintray.com/couchdb-deb bionic main" | sudo tee –a /etc/apt/sources.list
   - sudo apt update
-
-install:
-  - sudo apt install -y couchdb
+  - sudo apt-get install couchdb
 
 services:
   - memcached
