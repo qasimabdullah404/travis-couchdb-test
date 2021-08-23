@@ -1,17 +1,12 @@
 os: linux
-dist: focal
+dist: bionic
 language: php
-addons:
-  apt:
-    sources:
-      - https://apache.bintray.com/couchdb-deb
-    packages:
-      - couchdb
 
 services:
   - memcached
   - redis
   - mongodb
+  - couchdb
 
 php:
   - 7.3
