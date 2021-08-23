@@ -34,4 +34,6 @@ before_install:
   - sudo apt install -y couchdb
 
 
-script: true
+script:
+- couchdb start
+- echo done
