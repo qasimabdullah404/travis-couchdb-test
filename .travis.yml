@@ -1,12 +1,6 @@
 os: linux
 dist: bionic
 language: php
-addons:
-  apt:
-    sources:
-      - https://apache.bintray.com/couchdb-deb
-    packages:
-      - couchdb
 
 services:
   - memcached
