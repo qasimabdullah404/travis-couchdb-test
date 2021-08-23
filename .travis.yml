@@ -7,7 +7,7 @@ before_install:
   - sudo apt-get install -y software-properties-common
   - sudo apt install -y wget
   - wget https://couchdb.apache.org/repo/bintray-pubkey.asc
-  - apt-key add bintray-pubkey.asc
+  - sudo apt-key add bintray-pubkey.asc
   - echo "deb https://apache.bintray.com/couchdb-deb bionic main" | sudo tee –a /etc/apt/sources.list
   - sudo apt update
 
