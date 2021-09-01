@@ -6,12 +6,7 @@ services:
   - memcached
   - redis
   - mongodb
-addons:
-  apt:
-    sources:
-      - sourceline: 'ppa:couchdb/stable'
-    packages:
-      - couchdb
+  - couchdb
 
 php:
   - 7.3
