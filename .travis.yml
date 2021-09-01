@@ -24,6 +24,9 @@ jobs:
     - php: nightly
 
 before_install:
+  - sudo add-apt-repository ppa:couchdb/stable
+  - sudo apt-get -q update
+  - sudo apt-get -y install couchdb
 # Memcached is not yet available for PHP8 (hasn't been updated since 2019): https://pecl.php.net/package/memcached
 # Memcache however seems to be compatible with PHP 7 and 8: https://pecl.php.net/package/memcache
 #
