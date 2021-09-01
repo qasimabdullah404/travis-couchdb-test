@@ -18,7 +18,7 @@ jobs:
     - php: nightly
 
 before_install:
-  - sudo add-apt-repository ppa:randall-leeds/couchdb
+  - sudo add-apt-repository -y ppa:randall-leeds/couchdb
   - sudo apt-get -q update
   - sudo apt-get install --force-yes -V couchdb
 # Memcached is not yet available for PHP8 (hasn't been updated since 2019): https://pecl.php.net/package/memcached
