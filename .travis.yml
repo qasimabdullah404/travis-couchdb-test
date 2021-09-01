@@ -1,16 +1,12 @@
 os: linux
 dist: bionic
 language: php
-
-before_install:
-  - sudo apt update
-  - sudo apt-get install -y software-properties-common
-  - sudo apt install -y wget
-  - wget https://couchdb.apache.org/repo/bintray-pubkey.asc
-  - sudo apt-key add bintray-pubkey.asc
-  - echo "deb https://apache.bintray.com/couchdb-deb bionic main" | sudo tee –a /etc/apt/sources.list
-  - sudo apt update
-  - sudo apt-get install couchdb
+addons:
+  apt:
+    sources:
+      - https://apache.bintray.com/couchdb-deb
+    packages:
+      - couchdb
 
 services:
   - memcached
@@ -26,5 +22,26 @@ jobs:
   fast_finish: true
   allow_failures:
     - php: nightly
+
+before_install:
+# Memcached is not yet available for PHP8 (hasn't been updated since 2019): https://pecl.php.net/package/memcached
+# Memcache however seems to be compatible with PHP 7 and 8: https://pecl.php.net/package/memcache
+#
+  - |
+    echo "\$TRAVIS_PHP_VERSION set to: $TRAVIS_PHP_VERSION";
+    pecl channel-update pecl.php.net;
+    yes | pecl install -f mongodb-stable;
+    yes | pecl install -f apcu-stable || true;
+    yes | pecl install -f memcache;
+    ./bin/ci/scripts/setup_couchbase.sh;
+    yes | pecl install -f couchbase-stable;
+  - |
+    if [[ $TRAVIS_PHP_VERSION == "8."* || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+        phpenv config-add bin/ci/php8_phpfastcache.ini;
+    else
+        phpenv config-add bin/ci/php7_phpfastcache.ini;
+    fi
+  - phpenv config-add bin/ci/php_common.ini;
+  - phpenv config-rm xdebug.ini
 
 script: true
